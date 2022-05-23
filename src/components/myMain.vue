@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h2>Movies</h2>
     <ul>
       <li class="movie-card" v-for="(item, index) in moviesList" :key="index">
         <p>Title: {{ item.original_title }}</p>
@@ -8,6 +9,18 @@
           <img :src="pickFlag(item)" alt="" />
         </div>
         <p>Original title: {{ item.title }}</p>
+        <p>Vote: {{ item.vote_average }}/10</p>
+      </li>
+    </ul>
+    <h2>TV Shows</h2>
+    <ul>
+      <li class="movie-card" v-for="(item, index) in TVShowsList" :key="index">
+        <p>Title: {{item.name}}</p>
+        <div class="movie-language">
+          Original language: {{ item.original_language }}
+          <img :src="pickFlag(item)" alt="" />
+        </div>
+        <p>Original title: {{ item.name }}</p>
         <p>Vote: {{ item.vote_average }}/10</p>
       </li>
     </ul>
@@ -26,6 +39,7 @@ export default {
   },
   props: {
     moviesList: Array,
+    TVShowsList: Array
   },
   methods: {
     pickFlag(item) {
