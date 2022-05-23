@@ -37,6 +37,7 @@ export default {
   background-color: $background-color;
   ul {
     list-style: none;
+    padding: 0;
     li {
       display: inline-block;
     }
