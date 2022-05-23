@@ -1,5 +1,7 @@
 <template>
   <main>
+    <!-- <i class="far fa-star"></i>
+    <i class="fas fa-star"></i> -->
     <h2>Movies</h2>
     <ul>
       <li class="movie-card" v-for="(item, index) in moviesList" :key="index">
@@ -22,7 +24,7 @@
           <img :src="pickFlag(item)" alt="" />
         </div>
         <p>Original title: {{ item.name }}</p>
-        <p>Vote: {{ convertVote(item.vote_average) }}</p>
+        <p>Vote: {{ convertVote(item.vote_average) }} <i class="far fa-star"></i></p>
       </li>
     </ul>
   </main>
@@ -54,7 +56,9 @@ export default {
       }
     },
     convertVote(vote) {
-      console.log(vote);
+      const convertedVote = vote / 2
+      const roundedVote = Math.ceil(convertedVote);
+      return roundedVote;
     }
   },
 };
