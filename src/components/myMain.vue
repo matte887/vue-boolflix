@@ -39,6 +39,7 @@ export default {
       usaFlag: "assets/img/USA.png",
       globeFlag: "assets/img/globe.png",
       imgLinkRoot: "http://image.tmdb.org/t/p/w500/",
+      stars: '',
     };
   },
   props: {
@@ -60,7 +61,7 @@ export default {
       const roundedVote = Math.ceil(convertedVote);
       this.voteToStars(roundedVote);
       console.log(this.voteToStars);
-      return this.voteToStars;
+      return this.stars;
     },
     voteToStars(numberOfStars) {
       let starString = '';
@@ -73,7 +74,7 @@ export default {
           starString += '-';
         }
       }
-      // console.log(starString);
+      this.stars = starString;
       return starString;
     }
   },
