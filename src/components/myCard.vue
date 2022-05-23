@@ -1,25 +1,31 @@
 <template>
   <div class="col">
     <div class="movie-card" @mouseover="handleHover" @mouseleave="hangleLeave">
-      <img :src="imgLinkRoot + showData.poster_path" alt="" v-if="hover == false"/>
+      <img
+        :src="imgLinkRoot + showData.poster_path"
+        alt=""
+        v-if="hover == false"
+      />
       <div class="hoverInfo" v-if="hover">
-          <p>Title: {{ showData.original_title }}</p>
-          <div class="movie-language">
-            Original language: {{ showData.original_language }}
-            <img :src="pickFlag(showData)" alt="" />
-          </div>
-          <p>Original title: {{ showData.title }}</p>
-          <span>Vote:</span>
-          <span
-            v-for="(n, index) in convertVote(showData.vote_average)"
-            :key="index"
-            ><i class="fa-solid fa-star"></i
-          ></span>
-          <span
-            v-for="(n, index) in 5 - convertVote(showData.vote_average)"
-            :key="index + 10"
-            ><i class="fa-regular fa-star"></i
-          ></span>
+        <p><span class="font-weight-bold">Title:</span>{{ showData.original_title }}</p>
+        <div class="movie-language">
+            <span class="font-weight-bold">Original language:</span>
+           {{ showData.original_language }}
+          <img :src="pickFlag(showData)" alt="" />
+        </div>
+        <p>
+            <span class="font-weight-bold">Original title:</span> {{ showData.title }}</p>
+        <span class="font-weight-bold">Vote:</span>
+        <span
+          v-for="(n, index) in convertVote(showData.vote_average)"
+          :key="index"
+          ><i class="fa-solid fa-star"></i
+        ></span>
+        <span
+          v-for="(n, index) in 5 - convertVote(showData.vote_average)"
+          :key="index + 10"
+          ><i class="fa-regular fa-star"></i
+        ></span>
       </div>
     </div>
   </div>
@@ -56,11 +62,11 @@ export default {
       return roundedVote;
     },
     handleHover() {
-        this.hover = true;
+      this.hover = true;
     },
     hangleLeave() {
-        this.hover = false;
-    }
+      this.hover = false;
+    },
   },
 };
 </script>
@@ -76,8 +82,8 @@ export default {
       margin-left: 0.2rem;
     }
     img {
-      height: 200px;
-      width: auto;
+      height: auto;
+      width: 100%;
     }
   }
 }
