@@ -30,7 +30,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../style/variables.scss";
+
 ul {
   list-style: none;
+}
+
+main {
+  width: 100%;
+  color: white;
+  background-color: $background-color;
 }
 </style>
