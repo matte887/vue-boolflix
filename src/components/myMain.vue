@@ -56,9 +56,25 @@ export default {
       }
     },
     convertVote(vote) {
-      const convertedVote = vote / 2
+      const convertedVote = vote / 2;
       const roundedVote = Math.ceil(convertedVote);
-      return roundedVote;
+      this.voteToStars(roundedVote);
+      console.log(this.voteToStars);
+      return this.voteToStars;
+    },
+    voteToStars(numberOfStars) {
+      let starString = '';
+      for (let i = 0; i < numberOfStars; i++) {
+        starString += '*';
+      }
+      const whiteStars = 5 - numberOfStars;
+      if (whiteStars > 0) {
+        for (let i = 0; i < whiteStars; i++) {
+          starString += '-';
+        }
+      }
+      // console.log(starString);
+      return starString;
     }
   },
 };
