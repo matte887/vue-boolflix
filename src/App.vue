@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <myHeader @searchEvent="filterMovies($event)" />
-    <myMain :moviesList="searchedMovies" :TVShowsList="searchedTVShows" />
+    <main>
+      <myMain :moviesList="searchedMovies" :TVShowsList="searchedTVShows" />
+    </main>
   </div>
 </template>
 

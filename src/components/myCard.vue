@@ -1,5 +1,6 @@
 <template>
-    <li class="movie-card">
+  <div class="col">
+    <div class="movie-card">
       <img :src="imgLinkRoot + showData.poster_path" alt="" />
       <p>Title: {{ showData.original_title }}</p>
       <div class="movie-language">
@@ -8,9 +9,18 @@
       </div>
       <p>Original title: {{ showData.title }}</p>
       <span>Vote:</span>
-      <span v-for="(n, index) in convertVote(showData.vote_average)" :key="index"><i class="fa-solid fa-star"></i></span>
-      <span v-for="(n, index) in 5 - convertVote(showData.vote_average)" :key="index + 10"><i class="fa-regular fa-star"></i></span>
-    </li>
+      <span
+        v-for="(n, index) in convertVote(showData.vote_average)"
+        :key="index"
+        ><i class="fa-solid fa-star"></i
+      ></span>
+      <span
+        v-for="(n, index) in 5 - convertVote(showData.vote_average)"
+        :key="index + 10"
+        ><i class="fa-regular fa-star"></i
+      ></span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,7 +34,7 @@ export default {
       italianFlag: "assets/img/IT.webp",
       usaFlag: "assets/img/USA.png",
       globeFlag: "assets/img/globe.png",
-      imgLinkRoot: "http://image.tmdb.org/t/p/w500/",
+      imgLinkRoot: "http://image.tmdb.org/t/p/w342/",
       stars: "",
     };
   },
@@ -48,19 +58,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.movie-card {
-  border: 1px solid black;
-  display: inline-block;
-  margin: 1rem;
-  padding: 1rem;
-  .movie-language img {
-    width: 25px;
-    height: auto;
-    margin-left: 0.2rem;
-  }
-  img {
-    height: 200px;
-    width: auto;
-  }
+.col {
+    height: 100%;
+    .movie-card {
+    height: 100%;
+    .movie-language img {
+        width: 25px;
+        height: auto;
+        margin-left: 0.2rem;
+    }
+    img {
+        height: 200px;
+        width: auto;
+    }
+    }
 }
 </style>

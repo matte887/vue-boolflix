@@ -34,7 +34,6 @@ header {
     color: $brand-primary-color;
     .container {
         height: $header-height;
-
     }
 }
 </style>

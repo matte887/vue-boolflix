@@ -1,18 +1,18 @@
 <template>
-  <main>
+  <div class="container mt-4">
     <h2>Movies</h2>
-    <ul>
-      <li>
-        <myCard v-for="(item, index) in moviesList" :key="index" :showData="item" />
+    <ul  class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gy-3">
+      <li v-for="(item, index) in moviesList" :key="index">
+        <myCard :showData="item" />
       </li>
     </ul>
     <h2>TV Shows</h2>
     <ul>
-      <li>
-      <myCard v-for="(item, index) in TVShowsList" :key="index" :showData="item" />
+      <li v-for="(item, index) in TVShowsList" :key="index">
+      <myCard :showData="item" />
       </li>
     </ul>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -31,14 +31,15 @@ export default {
 
 <style lang="scss" scoped>
 @import "../style/variables.scss";
-
-ul {
-  list-style: none;
-}
-
-main {
+.container {
   width: 100%;
   color: white;
   background-color: $background-color;
+  ul {
+    list-style: none;
+    li {
+      display: inline-block;
+    }
+  }
 }
 </style>
