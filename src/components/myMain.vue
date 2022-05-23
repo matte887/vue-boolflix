@@ -1,6 +1,5 @@
 <template>
   <main>
-    <!-- <img src="../assets/img/IT.webp" alt=""> -->
     <ul>
       <li class="movie-card" v-for="(item, index) in moviesList" :key="index">
         <p>Title: {{ item.original_title }}</p>
@@ -20,7 +19,9 @@ export default {
   name: "myMain",
   data() {
     return {
-      italianFlag: "../assets/img/IT.webp",
+      italianFlag: "assets/img/IT.webp",
+      usaFlag: "assets/img/USA.png",
+      globeFlag: "assets/img/globe.png"
     };
   },
   props: {
@@ -30,6 +31,10 @@ export default {
     pickFlag(item) {
       if (item.original_language === "it") {
         return this.italianFlag;
+      } else if (item.original_language === "en") {
+        return this.usaFlag;
+      } else {
+        return this.globeFlag;
       }
     },
   },
@@ -45,7 +50,8 @@ ul {
     margin: 1rem;
     padding: 1rem;
     .movie-language img {
-      width: 20px;
+      width: 25px;
+      height: auto;
       margin-left: 0.2rem;
     }
   }
