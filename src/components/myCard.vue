@@ -7,7 +7,9 @@
         <img :src="pickFlag(showData)" alt="" />
       </div>
       <p>Original title: {{ showData.title }}</p>
-      <p>Vote: {{ convertVote(showData.vote_average) }} <i class="fa-solid fa-star"></i></p>
+      <span>Vote:</span>
+      <span v-for="(n, index) in convertVote(showData.vote_average)" :key="index"><i class="fa-solid fa-star"></i></span>
+      <span v-for="(n, index) in 5 - convertVote(showData.vote_average)" :key="index"><i class="fa-regular fa-star"></i></span>
     </li>
 </template>
 

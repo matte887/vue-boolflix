@@ -32,6 +32,5 @@ export default {
 <style lang="scss" scoped>
 ul {
   list-style: none;
-  // display: inline-block;
 }
 </style>
