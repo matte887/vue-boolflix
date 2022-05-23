@@ -9,7 +9,7 @@
       <p>Original title: {{ showData.title }}</p>
       <span>Vote:</span>
       <span v-for="(n, index) in convertVote(showData.vote_average)" :key="index"><i class="fa-solid fa-star"></i></span>
-      <span v-for="(n, index) in 5 - convertVote(showData.vote_average)" :key="index"><i class="fa-regular fa-star"></i></span>
+      <span v-for="(n, index) in 5 - convertVote(showData.vote_average)" :key="index + 10"><i class="fa-regular fa-star"></i></span>
     </li>
 </template>
 
