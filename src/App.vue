@@ -38,9 +38,9 @@ export default {
         })
         .then((resp) => {
           this.searchedMovies = resp.data.results;
-          this.getMovieCredits();
-          this.getMoviesGenres();
+          this.getMoviesInfos();
         });
+
       axios
         .get("https://api.themoviedb.org/3/search/tv", {
           params: {
@@ -50,13 +50,12 @@ export default {
         })
         .then((resp) => {
           this.searchedTVShows = resp.data.results;
-          this.getTVShowCredits();
-          this.getTVShowGenres();
+          this.getTVShowsInfos();
         });
     },
 
-    // Questa funzione recupera il cast di ogni film e tronca l'array a 5. L'array viene aggiunto dentro l'oggetto del film.
-    getMovieCredits() {
+    // Questa funzione recupera il cast ed i generi di ogni film. Gli array ottenuti vengono aggiunti come nuove proprietà dell'oggetto del film.
+    getMoviesInfos() {
       this.searchedMovies.forEach((movieObj) => {
         axios
           .get(
@@ -65,24 +64,19 @@ export default {
           .then((resp) => {
             movieObj.cast = resp.data.cast.slice(0, 5);
           });
-      });
-    },
-    // Questa funzione recupera i generi di ogni film sottoforma di array. L'array viene aggiunto dentro l'oggetto del film.
-    getMoviesGenres() {
-      this.searchedMovies.forEach((movieObj) => {
+
         axios
           .get(
             `https://api.themoviedb.org/3/movie/${movieObj.id}?api_key=${this.apiKey}`
           )
           .then((resp) => {
-            console.log(resp.data.genres);
             movieObj.genres = resp.data.genres;
           });
       });
     },
 
-    // Questa funzione recupera il cast di ogni serieTV e tronca l'array a 5. L'array viene aggiunto dentro l'oggetto della serie TV.
-    getTVShowCredits() {
+    // Questa funzione recupera il cast ed i generi di ogni serieTV e tronca l'array a 5. Gli array ottenuti vengono aggiunti come nuove proprietà dell'oggetto delle serie.
+    getTVShowsInfos() {
       this.searchedTVShows.forEach((TVShowObj) => {
         axios
           .get(
@@ -91,12 +85,8 @@ export default {
           .then((resp) => {
             TVShowObj.cast = resp.data.cast.slice(0, 5);
           });
-      });
-    },
-    // Questa funzione recupera i generi di ogni serieTV sottoforma di array. L'array viene aggiunto dentro l'oggetto della serie TV.
-    getTVShowGenres() {
-      this.searchedTVShows.forEach((TVShowObj) => {
-        axios
+
+          axios
           .get(
             `https://api.themoviedb.org/3/tv/${TVShowObj.id}?api_key=${this.apiKey}`
           )
