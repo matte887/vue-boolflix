@@ -47,6 +47,7 @@ export default {
         })
         .then((resp) => {
           this.searchedTVShows = resp.data.results;
+          this.getTVShowCredits();
         });
     },
     getMovieCredits() {
@@ -55,10 +56,18 @@ export default {
           .get(`https://api.themoviedb.org/3/movie/${movieObj.id}/credits?api_key=${this.apiKey}`)
           .then((resp) => {
             movieObj.cast = resp.data.cast.slice(0, 5);
-            console.log(movieObj);
           });
       });
     },
+    getTVShowCredits() {
+      this.searchedTVShows.forEach((TVShowObj) => {
+        axios
+          .get(`https://api.themoviedb.org/3/tv/${TVShowObj.id}/credits?api_key=${this.apiKey}`)
+          .then((resp) => {
+            TVShowObj.cast = resp.data.cast.slice(0, 5);
+          });
+      });
+    }
   },
 };
 </script>
