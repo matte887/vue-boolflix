@@ -1,32 +1,69 @@
 <template>
-  <li class="col">
-    <div class="movie-card" @mouseover="handleHover" @mouseleave="hangleLeave">
+  <li 
+    class="col"
+    @mouseleave="handleLeave"
+    @mouseover="handleHover"
+    >
+
+    <div class="movie-card">
+      <!-- Show cover -->
       <img
         :src="imgLinkRoot + showData.poster_path"
         alt=""
         v-if="hover == false"
       />
+      <!-- /Show cover -->
+
+      <!-- Show info -->
       <div class="hoverInfo" v-if="hover">
-        <p><span class="font-weight-bold">Title:</span>{{ showData.original_title }}</p>
+        <!-- Titolo dello show -->
+        <div class="show-title">
+          <h5 v-if="showData.original_title">
+            {{ showData.original_title }}
+          </h5>
+          <h5 v-else>
+            {{ showData.name }}
+          </h5>
+        </div>
+        <!-- /Titolo dello show -->
+
+        <!-- Lingua originale -->
         <div class="movie-language">
-            <span class="font-weight-bold">Original language:</span>
-           {{ showData.original_language }}
+          <span class="fw-bold">Original language:</span>
+          {{ showData.original_language }}
           <img :src="pickFlag(showData)" alt="" />
         </div>
-        <p>
-            <span class="font-weight-bold">Original title:</span> {{ showData.title }}</p>
-        <span class="font-weight-bold">Vote:</span>
+        <!-- /Lingua originale -->
+
+        <!-- Titolo originale -->
+        <div>
+          <span class="fw-bold">Original title:</span>
+          <span v-if="showData.title">
+            {{ showData.title }}
+          </span>
+          <span v-else>
+            {{ showData.original_name }}
+          </span>
+        </div>
+        <!-- /Titolo originale -->
+
+        <!-- Stringa stelle -->
+        <span class="fw-bold">Vote: </span>
         <span
           v-for="(n, index) in convertVote(showData.vote_average)"
           :key="index"
-          ><i class="fa-solid fa-star"></i
-        ></span>
+        >
+          <i class="fa-solid fa-star"></i>
+        </span>
         <span
           v-for="(n, index) in 5 - convertVote(showData.vote_average)"
           :key="index + 10"
-          ><i class="fa-regular fa-star"></i
-        ></span>
+        >
+          <i class="fa-regular fa-star"></i>
+        </span>
+        <!-- /Stringa stelle -->
       </div>
+      <!-- /Show info -->
     </div>
   </li>
 </template>
@@ -64,7 +101,7 @@ export default {
     handleHover() {
       this.hover = true;
     },
-    hangleLeave() {
+    handleLeave() {
       this.hover = false;
     },
   },
@@ -73,7 +110,6 @@ export default {
 
 <style lang="scss" scoped>
 .col {
-  height: 100%;
   .movie-card {
     height: 100%;
     .movie-language img {
