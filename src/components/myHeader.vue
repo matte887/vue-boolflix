@@ -2,10 +2,10 @@
   <header>
       <div class="container d-flex justify-content-between align-items-center">
           <h1>Boolflix</h1>
-          <form>
+          <div class="my-research">
               <input class="me-2" type="text" placeholder="Cerca un film..." v-model="searchKey">
-              <button type="button" @click="$emit('searchEvent', searchKey)">Search</button>
-          </form>
+              <button @click="$emit('searchEvent', searchKey)">Search</button>
+          </div>
       </div>
   </header>
 </template>
