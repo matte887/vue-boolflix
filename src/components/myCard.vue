@@ -31,7 +31,7 @@
         <!-- /Lingua originale -->
 
         <!-- Titolo originale -->
-        <div>
+        <div v-if="showData.title !== showData.original_title || showData.original_name !== showData.name">
           <span class="fw-bold">Original title:</span>
           <span v-if="showData.title">
             {{ showData.title }}
