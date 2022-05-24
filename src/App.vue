@@ -26,6 +26,8 @@ export default {
     };
   },
   methods: {
+    // Al click del tasto cerca, questa funzione riceve la chiave di ricerca ed effettua le chiamate API per film e serie TV.
+    // I dati ricevuti vengono messi in due array separati. Poi vengono chiamate le funzioni per recuperare gli attori ed i generi.
     filterMovies(searchKey) {
       axios
         .get("https://api.themoviedb.org/3/search/movie", {
@@ -52,6 +54,8 @@ export default {
           this.getTVShowGenres();
         });
     },
+
+    // Questa funzione recupera il cast di ogni film e tronca l'array a 5. L'array viene aggiunto dentro l'oggetto del film.
     getMovieCredits() {
       this.searchedMovies.forEach((movieObj) => {
         axios
@@ -63,6 +67,7 @@ export default {
           });
       });
     },
+    // Questa funzione recupera i generi di ogni film sottoforma di array. L'array viene aggiunto dentro l'oggetto del film.
     getMoviesGenres() {
       this.searchedMovies.forEach((movieObj) => {
         axios
@@ -75,6 +80,8 @@ export default {
           });
       });
     },
+
+    // Questa funzione recupera il cast di ogni serieTV e tronca l'array a 5. L'array viene aggiunto dentro l'oggetto della serie TV.
     getTVShowCredits() {
       this.searchedTVShows.forEach((TVShowObj) => {
         axios
@@ -86,6 +93,7 @@ export default {
           });
       });
     },
+    // Questa funzione recupera i generi di ogni serieTV sottoforma di array. L'array viene aggiunto dentro l'oggetto della serie TV.
     getTVShowGenres() {
       this.searchedTVShows.forEach((TVShowObj) => {
         axios
