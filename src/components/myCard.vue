@@ -1,5 +1,5 @@
 <template>
-  <div class="col">
+  <li class="col">
     <div class="movie-card" @mouseover="handleHover" @mouseleave="hangleLeave">
       <img
         :src="imgLinkRoot + showData.poster_path"
@@ -28,7 +28,7 @@
         ></span>
       </div>
     </div>
-  </div>
+  </li>
 </template>
 
 <script>
