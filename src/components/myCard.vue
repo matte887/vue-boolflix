@@ -1,10 +1,5 @@
 <template>
-  <li 
-    class="col"
-    @mouseleave="handleLeave"
-    @mouseover="handleHover"
-    >
-
+  <li class="col" @mouseleave="handleLeave" @mouseover="handleHover">
     <div class="movie-card">
       <!-- Show cover -->
       <img
@@ -52,12 +47,14 @@
         <span
           v-for="(n, index) in convertVote(showData.vote_average)"
           :key="index"
+          class="stars"
         >
           <i class="fa-solid fa-star"></i>
         </span>
         <span
           v-for="(n, index) in 5 - convertVote(showData.vote_average)"
           :key="index + 10"
+          class="stars"
         >
           <i class="fa-regular fa-star"></i>
         </span>
@@ -109,21 +106,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../style/variables.scss";
 .col {
   .movie-card {
     height: 100%;
+    img {
+      height: auto;
+      width: 100%;
+    }
     .hover-info {
       background-color: black;
       height: 100%;
+      .stars {
+        color: $star-rating;
+      }
     }
     .movie-language img {
       width: 25px;
       height: auto;
       margin-left: 0.2rem;
-    }
-    img {
-      height: auto;
-      width: 100%;
     }
   }
 }
