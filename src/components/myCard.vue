@@ -49,6 +49,13 @@
         </ul>
         <!-- /cast -->
 
+        <!-- genere -->
+        <p>
+          <span class="fw-bold">Genere: </span>
+          <span v-for="(item, index) in showData.genres" :key="index">{{item.name}}, </span>
+        </p>
+        <!-- /genere -->
+
         <!-- Stringa stelle -->
         <span class="fw-bold">Vote: </span>
         <span
