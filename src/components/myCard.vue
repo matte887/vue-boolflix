@@ -30,7 +30,7 @@
         </div>
         <!-- /Lingua originale -->
 
-        <!-- Titolo originale -->
+        <!-- Titolo originale (lo mostro solo se diverso dal titolo) -->
         <div v-if="showData.title !== showData.original_title || showData.original_name !== showData.name">
           <span class="fw-bold">Original title:</span>
           <span v-if="showData.title">
@@ -95,6 +95,7 @@ export default {
     };
   },
   methods: {
+    // Funzione che assegna diverse bandiere a diverse sigle.
     pickFlag(item) {
       if (item.original_language === "it") {
         return this.italianFlag;
@@ -104,11 +105,15 @@ export default {
         return this.globeFlag;
       }
     },
+
+    // Funzione che converte ed arrotonda per eccesso il voto.
     convertVote(vote) {
       const convertedVote = vote / 2;
       const roundedVote = Math.ceil(convertedVote);
       return roundedVote;
     },
+
+    // Funzioni che gestiscono l'hover.
     handleHover() {
       this.hover = true;
     },

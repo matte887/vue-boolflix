@@ -1,5 +1,7 @@
 <template>
   <div class="container mt-4">
+
+    <!-- Lista film -->
     <h2>Movies</h2>
     <ul class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gy-3 align-items-stretch">
       <myCard
@@ -8,6 +10,9 @@
       :showData="item"
       />
     </ul>
+    <!-- /Lista film -->
+
+    <!-- Lista serie TV -->
     <h2 class="mt-5">TV Shows</h2>
     <ul class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gy-3 align-items-stretch">
       <myCard
@@ -16,6 +21,8 @@
       :showData="item"
       />
     </ul>
+    <!-- /Lista serie TV -->
+
   </div>
 </template>
 
