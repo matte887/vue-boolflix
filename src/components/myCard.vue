@@ -15,7 +15,7 @@
       <!-- /Show cover -->
 
       <!-- Show info -->
-      <div class="hoverInfo" v-if="hover">
+      <div class="hover-info px-3 pt-4" v-if="hover">
         <!-- Titolo dello show -->
         <div class="show-title">
           <h5 v-if="showData.original_title">
@@ -112,6 +112,10 @@ export default {
 .col {
   .movie-card {
     height: 100%;
+    .hover-info {
+      background-color: black;
+      height: 100%;
+    }
     .movie-language img {
       width: 25px;
       height: auto;
