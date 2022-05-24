@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <h2>Movies</h2>
-    <ul  class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gy-3">
+    <ul class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gy-3">
       <li v-for="(item, index) in moviesList" :key="index">
         <myCard :showData="item" />
       </li>
@@ -9,18 +9,18 @@
     <h2>TV Shows</h2>
     <ul>
       <li v-for="(item, index) in TVShowsList" :key="index">
-      <myCard :showData="item" />
+        <myCard :showData="item" />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import myCard from "./myCard.vue"
+import myCard from "./myCard.vue";
 export default {
   name: "myMain",
   components: {
-    myCard
+    myCard,
   },
   props: {
     moviesList: Array,

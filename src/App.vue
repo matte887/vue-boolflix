@@ -22,33 +22,31 @@ export default {
     return {
       searchedMovies: [],
       searchedTVShows: [],
-      researchLink:
-        "https://api.themoviedb.org/3/search/movie?api_key=e6270ee8d8674f73682b91ddb2f17fe5&query=",
-      tvShowLink:
-        "https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&query=",
-      completeResearchLink: "",
-      completeTVShowLink: "",
+      apiKey: "e6270ee8d8674f73682b91ddb2f17fe5",
     };
   },
   methods: {
     filterMovies(searchKey) {
-      this.createResearchLink(searchKey);
-      axios.get(this.completeResearchLink).then((resp) => {
-        this.searchedMovies = resp.data.results;
-        this.searchedMovies.forEach(element => {
-          this.searchedMovies.push(element)
+      axios
+        .get("https://api.themoviedb.org/3/search/movie", {
+          params: {
+            api_key: this.apiKey,
+            query: searchKey,
+          },
+        })
+        .then((resp) => {
+          this.searchedMovies = resp.data.results;
         });
-      });
-      axios.get(this.completeTVShowLink).then((resp) => {
-        this.searchedTVShows = resp.data.results;
-        this.searchedMovies.forEach(element => {
-          this.searchedMovies.push(element)
+      axios
+        .get("https://api.themoviedb.org/3/search/tv", {
+          params: {
+            api_key: this.apiKey,
+            query: searchKey,
+          },
+        })
+        .then((resp) => {
+          this.searchedTVShows = resp.data.results;
         });
-      });
-    },
-    createResearchLink(searchKey) {
-      this.completeResearchLink = this.researchLink + searchKey;
-      this.completeTVShowLink = this.tvShowLink + searchKey;
     },
   },
 };
