@@ -36,6 +36,7 @@ export default {
         })
         .then((resp) => {
           this.searchedMovies = resp.data.results;
+          this.getMovieCredits();
         });
       axios
         .get("https://api.themoviedb.org/3/search/tv", {
@@ -47,6 +48,16 @@ export default {
         .then((resp) => {
           this.searchedTVShows = resp.data.results;
         });
+    },
+    getMovieCredits() {
+      this.searchedMovies.forEach((movieObj) => {
+        axios
+          .get(`https://api.themoviedb.org/3/movie/${movieObj.id}/credits?api_key=${this.apiKey}`)
+          .then((resp) => {
+            movieObj.cast = resp.data.cast.slice(0, 5);
+            console.log(movieObj);
+          });
+      });
     },
   },
 };

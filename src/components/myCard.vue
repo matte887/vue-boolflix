@@ -42,6 +42,13 @@
         </div>
         <!-- /Titolo originale -->
 
+        <!-- cast -->
+        <span class="fw-bold">Cast: </span>
+        <ul>
+          <li v-for="(item, index) in showData.cast" :key="index">{{item.name}}</li>
+        </ul>
+        <!-- /cast -->
+
         <!-- Stringa stelle -->
         <span class="fw-bold">Vote: </span>
         <span

@@ -3,14 +3,16 @@
     <h2>Movies</h2>
     <ul class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gy-3 align-items-stretch">
       <myCard
-      v-for="(item, index) in moviesList" :key="index"
+      v-for="(item, index) in moviesList"
+      :key="index"
       :showData="item"
       />
     </ul>
     <h2 class="mt-5">TV Shows</h2>
     <ul class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 gy-3 align-items-stretch">
       <myCard
-      v-for="(item, index) in TVShowsList" :key="index"
+      v-for="(item, index) in TVShowsList"
+      :key="index"
       :showData="item"
       />
     </ul>
