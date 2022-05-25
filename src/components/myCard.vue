@@ -13,11 +13,8 @@
       <div class="hover-info px-3 pt-4" v-if="hover">
         <!-- Titolo dello show -->
         <div class="show-title">
-          <h5 v-if="showData.original_title">
-            {{ showData.original_title }}
-          </h5>
-          <h5 v-else>
-            {{ showData.name }}
+          <h5>
+            {{ showData.original_title ? showData.original_title : showData.name}}
           </h5>
         </div>
         <!-- /Titolo dello show -->
@@ -36,12 +33,10 @@
         <!-- Titolo originale (lo mostro solo se diverso dal titolo) -->
         <div v-if="showData.title !== showData.original_title || showData.original_name !== showData.name">
           <span class="fw-bold">Original title:</span>
-          <span v-if="showData.title">
-            {{ showData.title }}
+          <span>
+            {{ showData.title ? showData.title : showData.original_name}}
           </span>
-          <span v-else>
-            {{ showData.original_name }}
-          </span>
+
         </div>
         <!-- /Titolo originale -->
 
