@@ -2,11 +2,11 @@
   <div id="app">
     <myHeader
       @searchEvent="filterMovies($event)"
-      @genreMovieSelected="filterMoviesByGenre($event)"
+      @genreMovieSelected="receiveMovieGenre($event)"
       @genreTVSelected="filterTVByGenre($event)"
-      />
+    />
     <main>
-      <myMain :moviesList="searchedMovies" :TVShowsList="searchedTVShows" />
+      <myMain :moviesList="filterMoviesByGenre" :TVShowsList="searchedTVShows" />
     </main>
   </div>
 </template>
@@ -27,6 +27,8 @@ export default {
       searchedMovies: [],
       searchedTVShows: [],
       apiKey: "e6270ee8d8674f73682b91ddb2f17fe5",
+      movieGenreSelected: '',
+      filteredMoviesArray: []
     };
   },
   methods: {
@@ -84,31 +86,51 @@ export default {
     getTVShowsInfos() {
       this.searchedTVShows.forEach((TVShowObj) => {
         axios
-          .get(
-            `https://api.themoviedb.org/3/tv/${TVShowObj.id}/credits?api_key=${this.apiKey}`
-          )
+          .get(`https://api.themoviedb.org/3/tv/${TVShowObj.id}/credits?api_key=${this.apiKey}`)
           .then((resp) => {
             TVShowObj.cast = resp.data.cast.slice(0, 5);
           });
 
-          axios
-          .get(
-            `https://api.themoviedb.org/3/tv/${TVShowObj.id}?api_key=${this.apiKey}`
-          )
+        axios
+          .get(`https://api.themoviedb.org/3/tv/${TVShowObj.id}?api_key=${this.apiKey}`)
           .then((resp) => {
             TVShowObj.genres = resp.data.genres;
           });
       });
     },
-
-    filterMoviesByGenre(movieGenre) {
-      console.log('Genere film selezionato:', movieGenre);
+    receiveMovieGenre(genre) {
+      this.movieGenreSelected = genre;
+      console.log(this.movieGenreSelected);
+      // this.filterMoviesByGenre();
     },
-    filterTVByGenre(TVGenre) {
-      console.log('Genere serie selezionato:', TVGenre);
-    }
-
+    // filterMoviesByGenre() {
+    //   const filteredMovies = this.searchedMovies.filter((thisMovie) => {
+    //     return thisMovie.genre_ids.includes(this.movieGenreSelected);
+    //   });
+    //   console.log(filteredMovies);
+    //   this.filteredMoviesArray = filteredMovies;
+    //   return filteredMovies;
+    // },
+    // filterMoviesByGenre() {
+    //   if (this.movieGenreSelected) {
+    //     return this.searchedMovies.filter((thisMovie) => {
+    //       return thisMovie.genre_ids.includes(this.movieGenreSelected);
+    //     });
+    //   } else {
+    //     return this.searchedMovies;
+    //   }
   },
+  computed: {
+    filterMoviesByGenre() {
+      if (this.movieGenreSelected) {
+        return this.searchedMovies.filter((thisMovie) => {
+          return thisMovie.genre_ids.includes(this.movieGenreSelected);
+        });
+      } else {
+        return this.searchedMovies;
+      }
+    }
+  }
 };
 </script>
 
