@@ -6,6 +6,7 @@
       @genreTVShowSelected="receiveTVShowGenre($event)"
     />
     <main>
+      <!-- Select per filtro film -->
       <div class="filter-movies">
         <label for="choose-movie-genre">Filter movies by genre</label>
         <select
@@ -14,16 +15,14 @@
           v-model="movieGenreSelected"
         >
           <option value="">Tutti</option>
-          <option
-            v-for="genre in moviesGenres"
-            :key="genre.id"
-            :value="genre.id"
-          >
+          <option v-for="genre in moviesGenres" :key="genre.id" :value="genre.id">
             {{ genre.name }}
           </option>
         </select>
       </div>
+      <!-- /Select per filtro film -->
 
+      <!-- Select per filtro serie -->
       <div class="filter-series">
         <label for="choose-tv-genre">Filter TV Shows by genre</label>
         <select
@@ -32,15 +31,14 @@
           v-model="tvShowGenreSelected"
         >
           <option value="">Tutti</option>
-          <option
-            v-for="genre in tvShowGenres"
-            :key="genre.id"
-            :value="genre.id"
-          >
+          <option v-for="genre in tvShowGenres" :key="genre.id" :value="genre.id">
             {{ genre.name }}
           </option>
         </select>
       </div>
+      <!-- /Select per filtro serie -->
+
+      
       <myMain
         :moviesList="filterMoviesByGenre"
         :TVShowsList="filterTVShowsByGenre"
@@ -142,31 +140,9 @@ export default {
           });
       });
     },
-    receiveMovieGenre(genre) {
-      this.movieGenreSelected = genre;
-    },
-    receiveTVShowGenre(genre) {
-      this.tvShowGenreSelected = genre;
-      console.log(this.movieGenreSelected);
-    },
-    // filterMoviesByGenre() {
-    //   const filteredMovies = this.searchedMovies.filter((thisMovie) => {
-    //     return thisMovie.genre_ids.includes(this.movieGenreSelected);
-    //   });
-    //   console.log(filteredMovies);
-    //   this.filteredMoviesArray = filteredMovies;
-    //   return filteredMovies;
-    // },
-    // filterMoviesByGenre() {
-    //   if (this.movieGenreSelected) {
-    //     return this.searchedMovies.filter((thisMovie) => {
-    //       return thisMovie.genre_ids.includes(this.movieGenreSelected);
-    //     });
-    //   } else {
-    //     return this.searchedMovies;
-    //   }
   },
   computed: {
+    // Queste due funzioni controllano i dati relativi alla selezione del filtro. Se questi cambiano, le funzioni si attivano ed effettuano la filtrazione sulla base dell'input.
     filterMoviesByGenre() {
       if (this.movieGenreSelected) {
         return this.searchedMovies.filter((thisMovie) => {
@@ -186,7 +162,9 @@ export default {
       }
     },
   },
+  
   created() {
+    // Al caricamento della pagina vengono effettuate due diverse chiamate per richiedere i generi di film e serie tv.
     axios
       .get(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.apiKey}`
