@@ -26,7 +26,10 @@
         <div class="movie-language">
           <span class="fw-bold">Original language:</span>
           {{ showData.original_language }}
-          <img :src="pickFlag(showData)" alt="" />
+          <!-- Mio metodo per bandiere -->
+          <!-- <img :src="pickFlag(showData)" alt="" /> -->
+          <img v-if="languageHasImage()" :src="require(`../assets/img/${showData.original_language}.png`)" alt="">
+          <img v-else class="globe" :src="require('../assets/img/globe.png')" alt="">
         </div>
         <!-- /Lingua originale -->
 
@@ -87,24 +90,32 @@ export default {
   },
   data() {
     return {
-      italianFlag: "assets/img/IT.webp",
-      usaFlag: "assets/img/USA.png",
-      globeFlag: "assets/img/globe.png",
+      // Mio metodo per bandiere
+      // italianFlag: "assets/img/IT.webp",
+      // usaFlag: "assets/img/USA.png",
+      // globeFlag: "assets/img/globe.png",
       imgLinkRoot: "http://image.tmdb.org/t/p/w342/",
       hover: false,
+      flags:["en", "it"]
     };
   },
   methods: {
-    // Funzione che assegna diverse bandiere a diverse sigle.
-    pickFlag(item) {
-      if (item.original_language === "it") {
-        return this.italianFlag;
-      } else if (item.original_language === "en") {
-        return this.usaFlag;
-      } else {
-        return this.globeFlag;
-      }
+    languageHasImage() {
+      return this.flags.includes(this.showData.original_language);
     },
+
+    // Mio metodo per bandiere
+
+    // Funzione che assegna diverse bandiere a diverse sigle.
+    // pickFlag(item) {
+    //   if (item.original_language === "it") {
+    //     return this.italianFlag;
+    //   } else if (item.original_language === "en") {
+    //     return this.usaFlag;
+    //   } else {
+    //     return this.globeFlag;
+    //   }
+    // },
 
     // Funzione che converte ed arrotonda per eccesso il voto.
     convertVote(vote) {
@@ -140,10 +151,15 @@ export default {
         color: $star-rating;
       }
     }
-    .movie-language img {
-      width: 25px;
-      height: auto;
-      margin-left: 0.2rem;
+    .movie-language {
+      img {
+        width: 20px;
+        height: auto;
+        margin-left: 0.2rem;
+      }
+      .globe {
+        filter: invert(1);
+      }
     }
   }
 }

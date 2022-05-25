@@ -1,42 +1,41 @@
 <template>
   <div id="app">
-    <myHeader
-      @searchEvent="filterMovies($event)"
-      @genreMovieSelected="receiveMovieGenre($event)"
-      @genreTVShowSelected="receiveTVShowGenre($event)"
-    />
-    <main>
-      <!-- Select per filtro film -->
-      <div class="filter-movies">
-        <label for="choose-movie-genre">Filter movies by genre</label>
-        <select
-          name="choose-movie-genre"
-          id="choose-movie-genre"
-          v-model="movieGenreSelected"
-        >
-          <option value="">Tutti</option>
-          <option v-for="genre in moviesGenres" :key="genre.id" :value="genre.id">
-            {{ genre.name }}
-          </option>
-        </select>
-      </div>
-      <!-- /Select per filtro film -->
+    
+    <myHeader @searchEvent="filterMovies($event)"/>
 
-      <!-- Select per filtro serie -->
-      <div class="filter-series">
-        <label for="choose-tv-genre">Filter TV Shows by genre</label>
-        <select
-          name="choose-tv-genre"
-          id="choose-tv-genre"
-          v-model="tvShowGenreSelected"
-        >
-          <option value="">Tutti</option>
-          <option v-for="genre in tvShowGenres" :key="genre.id" :value="genre.id">
-            {{ genre.name }}
-          </option>
-        </select>
+    <main>
+      <div class="container d-flex mt-3">
+        <!-- Select per filtro film -->
+        <div class="filter-movies">
+          <label class="me-3" for="choose-movie-genre">Filter movies by genre</label>
+          <select
+            id="choose-movie-genre"
+            v-model="movieGenreSelected"
+            class="me-3"
+          >
+            <option value="">All</option>
+            <option v-for="genre in moviesGenres" :key="genre.id" :value="genre.id">
+              {{ genre.name }}
+            </option>
+          </select>
+        </div>
+        <!-- /Select per filtro film -->
+  
+        <!-- Select per filtro serie -->
+        <div class="filter-series">
+          <label class="mx-3" for="choose-tv-genre">Filter TV Shows by genre</label>
+          <select
+            id="choose-tv-genre"
+            v-model="tvShowGenreSelected"
+          >
+            <option value="">All</option>
+            <option v-for="genre in tvShowGenres" :key="genre.id" :value="genre.id">
+              {{ genre.name }}
+            </option>
+          </select>
+        </div>
+        <!-- /Select per filtro serie -->
       </div>
-      <!-- /Select per filtro serie -->
 
       
       <myMain
@@ -58,41 +57,43 @@ export default {
     myHeader,
     myMain,
   },
+
   data() {
     return {
+      apiKey: "e6270ee8d8674f73682b91ddb2f17fe5",
+      // Film e serie cercate in base alla chiave di ricerca
       searchedMovies: [],
       searchedTVShows: [],
-      apiKey: "e6270ee8d8674f73682b91ddb2f17fe5",
+
+      // Chiavi per filtri dei generi
       movieGenreSelected: "",
       tvShowGenreSelected: "",
+
+      // Array di generi disponibili
       moviesGenres: [],
       tvShowGenres: [],
     };
   },
+
   methods: {
     // Al click del tasto cerca, questa funzione riceve la chiave di ricerca ed effettua le chiamate API per film e serie TV.
     // I dati ricevuti vengono messi in due array separati. Poi vengono chiamate le funzioni per recuperare gli attori ed i generi.
     filterMovies(searchKey) {
-      axios
-        .get("https://api.themoviedb.org/3/search/movie", {
-          params: {
+      const options = {
+        params: {
             api_key: this.apiKey,
             query: searchKey,
-          },
-        })
+          }
+      };
+      axios
+        .get("https://api.themoviedb.org/3/search/movie", options)
         .then((resp) => {
           this.searchedMovies = resp.data.results;
           this.getMoviesInfos();
-          console.log(this.searchedMovies);
         });
 
       axios
-        .get("https://api.themoviedb.org/3/search/tv", {
-          params: {
-            api_key: this.apiKey,
-            query: searchKey,
-          },
-        })
+        .get("https://api.themoviedb.org/3/search/tv", options)
         .then((resp) => {
           this.searchedTVShows = resp.data.results;
           this.getTVShowsInfos();
@@ -141,8 +142,9 @@ export default {
       });
     },
   },
+
   computed: {
-    // Queste due funzioni controllano i dati relativi alla selezione del filtro. Se questi cambiano, le funzioni si attivano ed effettuano la filtrazione sulla base dell'input.
+    // Queste due funzioni controllano i dati relativi alla selezione del filtro. Se questi sono stringhe vuote, le funzioni restituiscono l'array della ricerca originale, se cambiano, le funzioni effettuano la filtrazione sulla base dell'input.
     filterMoviesByGenre() {
       if (this.movieGenreSelected) {
         return this.searchedMovies.filter((thisMovie) => {
@@ -185,4 +187,7 @@ export default {
 <style lang="scss">
 @import "./style/common.scss";
 @import "./style/variables.scss";
+label {
+  color: white;
+}
 </style>
