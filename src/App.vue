@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <myHeader @searchEvent="filterMovies($event)" />
+    <myHeader
+      @searchEvent="filterMovies($event)"
+      @genreMovieSelected="filterMoviesByGenre($event)"
+      @genreTVSelected="filterTVByGenre($event)"
+      />
     <main>
       <myMain :moviesList="searchedMovies" :TVShowsList="searchedTVShows" />
     </main>
@@ -39,6 +43,7 @@ export default {
         .then((resp) => {
           this.searchedMovies = resp.data.results;
           this.getMoviesInfos();
+          console.log(this.searchedMovies);
         });
 
       axios
@@ -95,6 +100,14 @@ export default {
           });
       });
     },
+
+    filterMoviesByGenre(movieGenre) {
+      console.log('Genere film selezionato:', movieGenre);
+    },
+    filterTVByGenre(TVGenre) {
+      console.log('Genere serie selezionato:', TVGenre);
+    }
+
   },
 };
 </script>
