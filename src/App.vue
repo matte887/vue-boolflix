@@ -6,7 +6,45 @@
       @genreTVShowSelected="receiveTVShowGenre($event)"
     />
     <main>
-      <myMain :moviesList="filterMoviesByGenre" :TVShowsList="filterTVShowsByGenre" />
+      <div class="filter-movies">
+        <label for="choose-movie-genre">Filter movies by genre</label>
+        <select
+          name="choose-movie-genre"
+          id="choose-movie-genre"
+          v-model="movieGenreSelected"
+        >
+          <option value="">Tutti</option>
+          <option
+            v-for="genre in moviesGenres"
+            :key="genre.id"
+            :value="genre.id"
+          >
+            {{ genre.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-series">
+        <label for="choose-tv-genre">Filter TV Shows by genre</label>
+        <select
+          name="choose-tv-genre"
+          id="choose-tv-genre"
+          v-model="tvShowGenreSelected"
+        >
+          <option value="">Tutti</option>
+          <option
+            v-for="genre in tvShowGenres"
+            :key="genre.id"
+            :value="genre.id"
+          >
+            {{ genre.name }}
+          </option>
+        </select>
+      </div>
+      <myMain
+        :moviesList="filterMoviesByGenre"
+        :TVShowsList="filterTVShowsByGenre"
+      />
     </main>
   </div>
 </template>
@@ -27,8 +65,10 @@ export default {
       searchedMovies: [],
       searchedTVShows: [],
       apiKey: "e6270ee8d8674f73682b91ddb2f17fe5",
-      movieGenreSelected: '',
-      tvShowGenreSelected: ''
+      movieGenreSelected: "",
+      tvShowGenreSelected: "",
+      moviesGenres: [],
+      tvShowGenres: [],
     };
   },
   methods: {
@@ -86,13 +126,17 @@ export default {
     getTVShowsInfos() {
       this.searchedTVShows.forEach((TVShowObj) => {
         axios
-          .get(`https://api.themoviedb.org/3/tv/${TVShowObj.id}/credits?api_key=${this.apiKey}`)
+          .get(
+            `https://api.themoviedb.org/3/tv/${TVShowObj.id}/credits?api_key=${this.apiKey}`
+          )
           .then((resp) => {
             TVShowObj.cast = resp.data.cast.slice(0, 5);
           });
 
         axios
-          .get(`https://api.themoviedb.org/3/tv/${TVShowObj.id}?api_key=${this.apiKey}`)
+          .get(
+            `https://api.themoviedb.org/3/tv/${TVShowObj.id}?api_key=${this.apiKey}`
+          )
           .then((resp) => {
             TVShowObj.genres = resp.data.genres;
           });
@@ -140,8 +184,23 @@ export default {
       } else {
         return this.searchedTVShows;
       }
-    }
-  }
+    },
+  },
+  created() {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.apiKey}`
+      )
+      .then((resp) => {
+        this.moviesGenres = resp.data.genres;
+      });
+
+    axios
+      .get(`https://api.themoviedb.org/3/genre/tv/list?api_key=${this.apiKey}`)
+      .then((resp) => {
+        this.tvShowGenres = resp.data.genres;
+      });
+  },
 };
 </script>
 
