@@ -3,10 +3,10 @@
     <myHeader
       @searchEvent="filterMovies($event)"
       @genreMovieSelected="receiveMovieGenre($event)"
-      @genreTVSelected="filterTVByGenre($event)"
+      @genreTVShowSelected="receiveTVShowGenre($event)"
     />
     <main>
-      <myMain :moviesList="filterMoviesByGenre" :TVShowsList="searchedTVShows" />
+      <myMain :moviesList="filterMoviesByGenre" :TVShowsList="filterTVShowsByGenre" />
     </main>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
       searchedTVShows: [],
       apiKey: "e6270ee8d8674f73682b91ddb2f17fe5",
       movieGenreSelected: '',
-      filteredMoviesArray: []
+      tvShowGenreSelected: ''
     };
   },
   methods: {
@@ -100,8 +100,10 @@ export default {
     },
     receiveMovieGenre(genre) {
       this.movieGenreSelected = genre;
+    },
+    receiveTVShowGenre(genre) {
+      this.tvShowGenreSelected = genre;
       console.log(this.movieGenreSelected);
-      // this.filterMoviesByGenre();
     },
     // filterMoviesByGenre() {
     //   const filteredMovies = this.searchedMovies.filter((thisMovie) => {
@@ -128,6 +130,15 @@ export default {
         });
       } else {
         return this.searchedMovies;
+      }
+    },
+    filterTVShowsByGenre() {
+      if (this.tvShowGenreSelected) {
+        return this.searchedTVShows.filter((thisTVShow) => {
+          return thisTVShow.genre_ids.includes(this.tvShowGenreSelected);
+        });
+      } else {
+        return this.searchedTVShows;
       }
     }
   }
