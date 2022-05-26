@@ -4,7 +4,7 @@
     <myHeader @searchEvent="filterMovies($event)"/>
 
     <main>
-      <div class="container d-flex mt-3">
+      <div class="filter-selection container d-flex mt-3">
         <!-- Select per filtro film -->
         <div class="filter-movies">
           <label class="me-3" for="choose-movie-genre">Filter movies by genre</label>
@@ -187,7 +187,17 @@ export default {
 <style lang="scss">
 @import "./style/common.scss";
 @import "./style/variables.scss";
-label {
-  color: white;
+
+main {
+  .filter-selection {
+    label {
+      color: white;
+    }
+    
+    select {
+      background-color: black;
+      color: white;
+    }
+  }
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <li class="col" @mouseleave="handleLeave" @mouseover="handleHover">
     <div class="movie-card">
-
       <!-- CARD FRONT: show cover -->
       <div class="card-front" v-if="hover == false">
         <img
@@ -17,7 +16,7 @@
       <!-- /CARD FRONT: show cover -->
 
       <!-- CARD BACK: show info -->
-      <div class="card-back hover-info px-3 pt-4" v-if="hover">
+      <div class="card-back px-3 pt-4" v-if="hover">
         <!-- Titolo dello show -->
         <div class="show-title">
           <h5>
@@ -99,7 +98,6 @@
         <!-- /Stringa stelle -->
       </div>
       <!-- /CARD BACK: show info -->
-
     </div>
   </li>
 </template>
@@ -163,41 +161,41 @@ export default {
   height: 100%;
   .card-front {
     height: 100%;
-  }
-  img {
-    height: auto;
-    width: 100%;
-  }
+    img {
+      height: auto;
+      width: 100%;
+    }
 
-  .missing-cover {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    border: 1px solid white;
-    .smile-sad {
-      writing-mode: tb;
-      font-size: 1.5rem;
+    .missing-cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      border: 1px solid white;
+      .smile-sad {
+        writing-mode: tb;
+        font-size: 1.5rem;
+      }
     }
   }
 
-  .hover-info {
+  .card-back {
     background-color: black;
     height: 100%;
+    .movie-language {
+      img {
+        width: 20px;
+        height: auto;
+        margin-left: 0.2rem;
+      }
+      .globe {
+        filter: invert(1);
+      }
+    }
     .stars {
       color: $star-rating;
-    }
-  }
-  .movie-language {
-    img {
-      width: 20px;
-      height: auto;
-      margin-left: 0.2rem;
-    }
-    .globe {
-      filter: invert(1);
     }
   }
 }

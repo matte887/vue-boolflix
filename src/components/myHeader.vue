@@ -24,6 +24,7 @@ export default {
     };
   },
   methods: {
+    // Con questa funzione inviamo l'evento al padre solo se searchKey è una stringa non vuota.
     sendSearchEvent() {
       if (this.searchKey.trim()) {
         return this.$emit('searchEvent', this.searchKey)
@@ -41,6 +42,12 @@ header {
   color: $brand-primary-color;
   .container {
     height: $header-height;
+    input {
+      border: none;
+    }
+    button {
+      border: none;
+    }
   }
 }
 </style>
