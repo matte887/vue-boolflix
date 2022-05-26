@@ -9,7 +9,7 @@
           placeholder="Search a movie..."
           v-model="searchKey"
         />
-        <button @click="$emit('searchEvent', searchKey)">Search</button>
+        <button @click="sendSearchEvent()">Search</button>
       </div>
     </div>
 </header>
@@ -23,6 +23,13 @@ export default {
       searchKey: "",
     };
   },
+  methods: {
+    sendSearchEvent() {
+      if (this.searchKey.trim()) {
+        return this.$emit('searchEvent', this.searchKey)
+      }
+    }
+  }
 };
 </script>
 
